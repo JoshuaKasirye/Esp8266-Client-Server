@@ -3,8 +3,7 @@
 */
 
 /* Disclaimer
-    Please the code below works for only esp8266 which I used not esp32. It was difficult to ship in the
-    esp32 before the end of this project, therefore the next best option was esp8266 which
+    Please the code below works for only esp8266 which I used not esp32. But esp8266 also
     works similarily like the esp32. Thank you*/
 
 
@@ -82,7 +81,7 @@ void loop() {
 
 char htmlResponse[3000]; //For storing the HTML response request
 
-//Creating the HTML Vital taking page
+//Creating the HTML Vital taking client page
 void handleRoot() {
   snprintf ( htmlResponse, 3000,
              "<!DOCTYPE html>\
@@ -130,7 +129,7 @@ void handleRoot() {
 }
 
 
-void handleSave() {//function to retrieve the saved information from the server 
+void handleSave() {//function to retrieve the saved information from the server by the client
   if (server.arg("UserName") != "") {
     Serial.println("User Name: " + server.arg("UserName")); //User name
   }
@@ -161,7 +160,7 @@ void handleSave() {//function to retrieve the saved information from the server
   //initializing the http client as http
   HTTPClient http;
   //link to be used to send the measured average temperature to the remote data base.
-  String url = "http://rehmsys1.000webhostapp.com/add_temp.php?temp=" + String(average) + "&username=" + server.arg("UserName") + "&password=" + server.arg("Password");
+  String url = "YOUR_URL?temp=" + String(average) + "&username=" + server.arg("UserName") + "&password=" + server.arg("Password");
 
   String payload = ""; //variable to store the response from the http request.
   Serial.println(url);
